@@ -1,3 +1,7 @@
 {
-  "extends": "@homebound/tsconfig/tsconfig.json"
+  "extends": "@homebound/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["es5", "dom"]
+  }
 }
