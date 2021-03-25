@@ -4,8 +4,7 @@ import { Route, Router } from "react-router";
 import { QueryParamProvider } from "use-query-params";
 export * from "./mocks";
 
-/** Interface for adding wrappers (i.e. store, theme, etc. providers) around the test component. */
-export interface Wrapper {
+interface Wrapper {
   wrap(c: ReactElement): ReactElement;
 }
 
