@@ -13,3 +13,5 @@ const { button } = await render(
 click(button);
 expect(router.history.location.pathname).toEqual("/somethingElse");
 ```
+
+foo
