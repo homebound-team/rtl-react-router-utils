@@ -1,7 +1,10 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@1.1.4
+node-image: &node-image
+  image: circleci/node:14.8.0
+  auth:
+    username: $DOCKERHUB_USERNAME
+    password: $DOCKERHUB_ACCESS_TOKEN
 
 workflows:
   version: 2
@@ -15,14 +18,12 @@ workflows:
 jobs:
   build:
     docker:
-      - image: circleci/node:erbium
+      - <<: *node-image
     working_directory: ~/project
     steps:
       - checkout
       - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc'
-      - node/with-cache:
-          steps:
-            - run: npm install
+      - run: npm ci
       - run: npm run build
       - run: npm test
       - when:
