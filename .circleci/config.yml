@@ -22,7 +22,9 @@ workflows:
           filters:
             <<: *only-run-on-branches
       - build:
-          context: npm
+          context:
+            - npm
+            - github
           publish: true
           filters:
             <<: *only-run-on-main
