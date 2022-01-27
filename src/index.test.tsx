@@ -16,7 +16,7 @@ describe("renderRouter", () => {
 
   it("withRouter renders without requiring a path", async () => {
     const { getByTestId } = render(withRouter(fooUrlWithParam).wrap(<FooPage />));
-    expect(getByTestId("url").innerHTML).toEqual(fooUrl);
+    expect(getByTestId("url").innerHTML).toEqual("/");
     expect(getByTestId("param").innerHTML).toEqual("test");
     // Cannot match `id` as we didn't specify a `path` for matching against
     expect(getByTestId("id").innerHTML).toEqual("");
