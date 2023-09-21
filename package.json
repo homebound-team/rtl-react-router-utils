@@ -61,7 +61,7 @@
       [
         "@semantic-release/exec",
         {
-          "prepareCmd": "npm run build"
+          "prepareCmd": "yarn build"
         }
       ],
       "@semantic-release/npm",
@@ -71,5 +71,6 @@
   "prettier": {
     "trailingComma": "all",
     "printWidth": 120
-  }
+  },
+  "packageManager": "yarn@3.6.3"
 }
