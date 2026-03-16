@@ -1,6 +1,7 @@
 import React from "react";
+import { describe, expect, it, vi } from "vitest";
 import { useParams, useRouteMatch } from "react-router";
-import { withRoute, withRouter } from "./index";
+import { withRoute, withRouter } from "./index.js";
 import { useQueryParam, StringParam } from "use-query-params";
 import { render } from "@testing-library/react";
 
@@ -27,14 +28,14 @@ describe("renderRouter", () => {
     expect(getByTestId("id").innerHTML).toEqual("");
   });
 
-  it("withRoute throws when not wrapped by router", async () => {
+  it("withRoute throws when not wrapped by router", () => {
     // note: test passes but still showing asserted error in console without spy
-    const spy = jest.spyOn(console, "error").mockImplementation(() => {});
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
     // Given route is not wrapped by router when the component is rendered then an error is thrown
-    await expect(async () => render(withRoute().wrap(<FooPage />))).rejects.toThrowError(
+    expect(() => render(withRoute().wrap(<FooPage />))).toThrow(
       "Invariant failed: You should not use <Route> outside a <Router>",
     );
-    spy.mockClear();
+    spy.mockRestore();
   });
 
   it("withRoute provides expected defaults", () => {
