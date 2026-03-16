@@ -2,9 +2,16 @@
   "name": "@homebound/rtl-react-router-utils",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "scripts": {
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "build": "tsc",
     "semantic-release": "semantic-release",
     "format": "prettier --write 'src/**/*.{ts,js,tsx,jsx}'"
@@ -13,7 +20,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/react-router": "^5.1.20",
     "query-string": "^7.0.0",
     "react-router": "^5.3.4",
     "use-query-params": "^1.2.2"
@@ -22,7 +28,11 @@
     "@homebound/tsconfig": "^1.1.1",
     "@semantic-release/exec": "^6.0.3",
     "@testing-library/react": "^14.0.0",
+    "@types/history": "^4.7.11",
     "@types/jest": "^30.0.0",
+    "@types/react": "^18.3.26",
+    "@types/react-dom": "^18.3.7",
+    "@types/react-router": "^5.1.20",
     "conventional-changelog-conventionalcommits": "^4.5.0",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
@@ -41,6 +51,9 @@
     "dist",
     "!dist/**/*.test.*"
   ],
+  "resolutions": {
+    "@types/react": "^18.3.28"
+  },
   "release": {
     "branches": [
       "main"

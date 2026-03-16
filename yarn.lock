@@ -498,7 +498,10 @@ __metadata:
     "@homebound/tsconfig": "npm:^1.1.1"
     "@semantic-release/exec": "npm:^6.0.3"
     "@testing-library/react": "npm:^14.0.0"
+    "@types/history": "npm:^4.7.11"
     "@types/jest": "npm:^30.0.0"
+    "@types/react": "npm:^18.3.26"
+    "@types/react-dom": "npm:^18.3.7"
     "@types/react-router": "npm:^5.1.20"
     conventional-changelog-conventionalcommits: "npm:^4.5.0"
     jest: "npm:^30.3.0"
@@ -1631,12 +1634,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.0":
-  version: 18.0.11
-  resolution: "@types/react-dom@npm:18.0.11"
-  dependencies:
-    "@types/react": "npm:*"
-  checksum: 10/e6dd39b2ef65f6e6257f1792c62e997273a06c3e72e05f082185d0b8dfd8972340f9d5452408183b4bf03bd68cbb2fb9da89e063f1ba98c287a38953491febec
+"@types/react-dom@npm:^18.0.0, @types/react-dom@npm:^18.3.7":
+  version: 18.3.7
+  resolution: "@types/react-dom@npm:18.3.7"
+  peerDependencies:
+    "@types/react": ^18.0.0
+  checksum: 10/317569219366d487a3103ba1e5e47154e95a002915fdcf73a44162c48fe49c3a57fcf7f57fc6979e70d447112681e6b13c6c3c1df289db8b544df4aab2d318f3
   languageName: node
   linkType: hard
 
@@ -1650,14 +1653,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
-  version: 17.0.3
-  resolution: "@types/react@npm:17.0.3"
+"@types/react@npm:^18.3.28":
+  version: 18.3.28
+  resolution: "@types/react@npm:18.3.28"
   dependencies:
     "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 10/1ec8e8b92326b4e1d4d3f1d8621e850bc6a3757bad70112769d277e7f5b725ad3e0c7d47c77d29434da66628596110448e505d5ace69033d5b35d59b3962db73
+    csstype: "npm:^3.2.2"
+  checksum: 10/6db7bb7f19957ee9f530baa7d143527f8befedad1585b064eb80777be0d84621157de75aba4f499ff429b10c5ef0c7d13e89be6bca3296ef71c80472894ff0eb
   languageName: node
   linkType: hard
 
@@ -1665,13 +1667,6 @@ __metadata:
   version: 0.12.0
   resolution: "@types/retry@npm:0.12.0"
   checksum: 10/bbd0b88f4b3eba7b7acfc55ed09c65ef6f2e1bcb4ec9b4dca82c66566934351534317d294a770a7cc6c0468d5573c5350abab6e37c65f8ef254443e1b028e44d
-  languageName: node
-  linkType: hard
-
-"@types/scheduler@npm:*":
-  version: 0.16.1
-  resolution: "@types/scheduler@npm:0.16.1"
-  checksum: 10/709f02113c64289a03b15b7ecd541b1846caa224dacaf506f93b6931ec88b8c33e435122303e54e4501eecc9671817e133c3e98377c3751d8e0eb5019bd2bd35
   languageName: node
   linkType: hard
 
@@ -2769,10 +2764,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^3.0.2":
-  version: 3.0.7
-  resolution: "csstype@npm:3.0.7"
-  checksum: 10/a93533d9ff044690ad6403b8915db36d667c2a58024fa8b36f398271bb96a132d65cde5d95d0116428311e614193099fdc87e41db076ad923444f0fdceea1282
+"csstype@npm:^3.2.2":
+  version: 3.2.3
+  resolution: "csstype@npm:3.2.3"
+  checksum: 10/ad41baf7e2ffac65ab544d79107bf7cd1a4bb9bab9ac3302f59ab4ba655d5e30942a8ae46e10ba160c6f4ecea464cc95b975ca2fefbdeeacd6ac63f12f99fe1f
   languageName: node
   linkType: hard
 

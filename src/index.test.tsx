@@ -1,6 +1,7 @@
 import React from "react";
+import { jest } from "@jest/globals";
 import { useParams, useRouteMatch } from "react-router";
-import { withRoute, withRouter } from "./index";
+import { withRoute, withRouter } from "./index.js";
 import { useQueryParam, StringParam } from "use-query-params";
 import { render } from "@testing-library/react";
 

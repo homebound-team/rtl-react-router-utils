@@ -1,8 +1,9 @@
-import React, { ReactElement } from "react";
+import React from "react";
+import type { ReactElement } from "react";
 import { MemoryHistory, createMemoryHistory } from "history";
 import { Route, Router } from "react-router";
 import { QueryParamProvider } from "use-query-params";
-export * from "./mocks";
+export * from "./mocks.js";
 
 interface Wrapper {
   wrap(c: ReactElement): ReactElement;
