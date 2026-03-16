@@ -22,26 +22,28 @@
   "engines": {
     "node": ">=24.14.0"
   },
+  "//": "Keep history on v4 while this package targets react-router v5; history v5 types are incompatible.",
   "dependencies": {
+    "history": "^4.10.1",
     "query-string": "^9.3.1",
     "react-router": "^5.3.4",
     "use-query-params": "^2.2.2"
   },
   "devDependencies": {
     "@homebound/tsconfig": "^1.1.1",
-    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/exec": "^7.1.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.2",
     "@types/history": "^4.7.11",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/react-router": "^5.1.20",
-    "conventional-changelog-conventionalcommits": "^4.5.0",
+    "conventional-changelog-conventionalcommits": "^9.3.0",
     "jsdom": "^29.0.0",
     "prettier": "^3.8.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "semantic-release": "^20.1.0",
+    "semantic-release": "^25.0.3",
     "typescript": "^5.9.3",
     "vitest": "^4.1.0"
   },
