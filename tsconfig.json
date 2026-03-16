@@ -2,7 +2,7 @@
   "extends": "@homebound/tsconfig/tsconfig.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "lib": ["es5", "dom"],
+    "lib": ["es2015", "dom"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext"
   }

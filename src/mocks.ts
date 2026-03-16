@@ -1,4 +1,5 @@
 import { History, Location } from "history";
+import { vi } from "vitest";
 
 export function newLocation(path: string, search: string = ""): Location {
   return {
@@ -16,11 +17,11 @@ export function newHistoryMock(location?: Location): History {
     action: "PUSH",
     goBack: history.back,
     goForward: history.forward,
-    replace: jest.fn(),
-    createHref: jest.fn(),
-    block: jest.fn(),
-    push: jest.fn(),
+    replace: vi.fn(),
+    createHref: vi.fn(),
+    block: vi.fn(),
+    push: vi.fn(),
     location: location ?? newLocation("/"),
-    listen: jest.fn(),
+    listen: vi.fn(),
   };
 }
