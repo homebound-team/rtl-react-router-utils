@@ -14,11 +14,9 @@ expect(router.location.pathname).toEqual("/somethingElse");
 Imperative navigation (replaces `router.history.push`):
 
 ```tsx
-await router.memoryRouter.navigate("/somethingElse");
+await router.navigate("/somethingElse");
 expect(router.location.pathname).toEqual("/somethingElse");
 ```
-
-`navigate` returns a `Promise` — use `await` in tests (often inside `act(async () => { ... })`).
 
 A `withRoute` helper for using with `rtl-utils`.
 

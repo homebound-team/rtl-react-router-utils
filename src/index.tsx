@@ -9,13 +9,6 @@ interface Wrapper {
   wrap(c: ReactElement): ReactElement;
 }
 
-function requireMemoryRouter(memoryRouter: Router | undefined): Router {
-  if (!memoryRouter) {
-    throw new Error("Call wrap() before accessing location or memoryRouter");
-  }
-  return memoryRouter;
-}
-
 /**
  * Applies Router and QueryParamProvider wrappers.
  *
@@ -27,6 +20,7 @@ export function withRouter(
 ): Wrapper & {
   get location(): Location;
   get memoryRouter(): Router;
+  navigate(to: string): Promise<void>;
 } {
   let memoryRouter: Router | undefined;
 
@@ -47,6 +41,9 @@ export function withRouter(
     get memoryRouter() {
       return requireMemoryRouter(memoryRouter);
     },
+    navigate(to: string) {
+      return requireMemoryRouter(memoryRouter).navigate(to);
+    },
   };
 }
 
@@ -63,4 +60,11 @@ export function withRoute(route: string = ""): Wrapper {
       c
     );
   return { wrap };
+}
+
+function requireMemoryRouter(memoryRouter: Router | undefined): Router {
+  if (!memoryRouter) {
+    throw new Error("Component must first be rendered before accessing location or memoryRouter");
+  }
+  return memoryRouter;
 }

@@ -31,7 +31,7 @@ describe("renderRouter", () => {
 
   it("withRoute throws when not wrapped by router", () => {
     // note: test passes but still showing asserted error in console without spy
-    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const spy = vi.spyOn(console, "error").mockImplementation(() => { });
     // Given route is not wrapped by router when the component is rendered then an error is thrown
     // withRoute("") is a pass-through; use a real path to require a Router parent
     expect(() => render(withRoute(fooPath).wrap(<FooPage />))).toThrow(
@@ -63,19 +63,17 @@ describe("renderRouter", () => {
     expect(getByTestId("id").innerHTML).toEqual("1");
   });
 
-  it("navigates via memoryRouter.navigate and updates location", async () => {
+  it("navigates via router.navigate and updates location", async () => {
     const router = withRouter("/foo/1", "/foo/:id");
     render(router.wrap(<FooPage />));
     expect(router.location.pathname).toBe("/foo/1");
 
-    await act(async () => {
-      await router.memoryRouter.navigate("/foo/2");
-    });
+    await router.navigate("/foo/2");
 
     expect(router.location.pathname).toBe("/foo/2");
   });
 
-  it("navigates via Link click and updates location", () => {
+  it("navigates via Link click and updates location", async () => {
     const router = withRouter("/foo/1", "/foo/:id");
     render(
       router.wrap(
