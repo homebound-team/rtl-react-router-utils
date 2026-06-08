@@ -228,6 +228,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@homebound/rtl-react-router-utils@workspace:."
   dependencies:
+    "@homebound/rtl-utils": "npm:^2.71.0"
     "@homebound/tsconfig": "npm:^1.1.1"
     "@semantic-release/exec": "npm:^7.1.0"
     "@testing-library/dom": "npm:^10.4.1"
@@ -250,6 +251,16 @@ __metadata:
     react: ">=18"
   languageName: unknown
   linkType: soft
+
+"@homebound/rtl-utils@npm:^2.71.0":
+  version: 2.71.0
+  resolution: "@homebound/rtl-utils@npm:2.71.0"
+  peerDependencies:
+    "@testing-library/react": ">=12 || >=13 || >=14"
+    react: ">=16 || >=17 || >=18"
+  checksum: 10/2617d6c729bf5242294607818621b15a5bd4ad343a0564a337fbd6415dc65f2b2b672450118493be0391ffe4a6b6d20324c00de18f56fee0daf1fd0253128159
+  languageName: node
+  linkType: hard
 
 "@homebound/tsconfig@npm:^1.1.1":
   version: 1.1.1

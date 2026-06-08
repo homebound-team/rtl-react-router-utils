@@ -4,6 +4,12 @@
     "jsx": "react-jsx",
     "lib": ["es2015", "dom"],
     "module": "NodeNext",
-    "moduleResolution": "NodeNext"
-  }
+    "moduleResolution": "NodeNext",
+    "paths": {
+      "src/*": ["src/*"],
+      "src": ["src"],
+      "@homebound/rtl-utils": ["./node_modules/@homebound/rtl-utils/build/lib/index.d.ts"]
+    }
+  },
+  "exclude": ["node_modules", "src/**/*.test.tsx", "src/setupTests.ts"]
 }

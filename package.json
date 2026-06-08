@@ -29,6 +29,7 @@
     "use-query-params": "^2.2.2"
   },
   "devDependencies": {
+    "@homebound/rtl-utils": "^2.71.0",
     "@homebound/tsconfig": "^1.1.1",
     "@semantic-release/exec": "^7.1.0",
     "@testing-library/dom": "^10.4.1",
