@@ -30,12 +30,12 @@ export function withRouter(url: string = "/", route: string = ""): MemoryRouterH
 }
 
 /**
- * Mounts a real RouteObject tree via createMemoryRouter. The wrap child is ignored —
+ * Mounts a RouteObject tree via createMemoryRouter. The wrap child is ignored —
  * RR6 matches `url` against the tree and renders the matched route element.
  *
  * Does not inject QueryParamProvider; route-tree shells (e.g. AppShell) provide that.
  */
-export function withRouteTree(routes: RouteObject[], url: string = "/"): MemoryRouterHelper {
+export function withRoutes(routes: RouteObject[], url: string = "/"): MemoryRouterHelper {
   return createMemoryRouterHelper(() => createMemoryRouter(routes, { initialEntries: [url] }));
 }
 

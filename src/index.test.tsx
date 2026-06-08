@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { Link, Outlet } from "react-router-dom";
 import { useLocation, useParams } from "react-router";
 import type { RouteObject } from "react-router-dom";
-import { withRoute, withRouteTree, withRouter } from "./index.js";
+import { withRoute, withRoutes, withRouter } from "./index.js";
 import { useQueryParam, StringParam } from "use-query-params";
 import { click, render } from "@homebound/rtl-utils";
 
@@ -88,26 +88,26 @@ describe("renderRouter", () => {
   });
 });
 
-describe("withRouteTree", () => {
+describe("withRoutes", () => {
   it("matches nested route tree and renders the leaf", async () => {
-    const r = await render(<></>, { wrappers: [withRouteTree(fooRoutes(), "/foo/1")] });
+    const r = await render(<></>, { wrappers: [withRoutes(fooRoutes(), "/foo/1")] });
     expect(r.leaf.innerHTML).toEqual("leaf");
   });
 
   it("ignores the wrap child", async () => {
-    const r = await render(<div data-testid="ignored" />, { wrappers: [withRouteTree(fooRoutes(), "/foo/1")] });
+    const r = await render(<div data-testid="ignored" />, { wrappers: [withRoutes(fooRoutes(), "/foo/1")] });
     expect(r.query.ignored).toBeNull();
     expect(r.leaf.innerHTML).toEqual("leaf");
   });
 
   it("location reflects the url arg", async () => {
-    const router = withRouteTree(fooRoutes(), "/foo/2");
+    const router = withRoutes(fooRoutes(), "/foo/2");
     await render(<></>, { wrappers: [router] });
     expect(router.location.pathname).toBe("/foo/2");
   });
 
   it("navigates via router.navigate and updates location", async () => {
-    const router = withRouteTree(fooRoutes(), "/foo/1");
+    const router = withRoutes(fooRoutes(), "/foo/1");
     await render(<></>, { wrappers: [router] });
     expect(router.location.pathname).toBe("/foo/1");
 
@@ -117,7 +117,7 @@ describe("withRouteTree", () => {
   });
 
   it("does not render a leaf for an unknown URL", async () => {
-    const r = await render(<></>, { wrappers: [withRouteTree(fooRoutes(), "/foo/1/not-found")] });
+    const r = await render(<></>, { wrappers: [withRoutes(fooRoutes(), "/foo/1/not-found")] });
     expect(r.query.leaf).toBeNull();
     expect(r.notFound.innerHTML).toEqual("not-found");
   });
