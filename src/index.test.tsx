@@ -1,71 +1,69 @@
 import React from "react";
-import { describe, expect, it, vi } from "vitest";
-import { Link } from "react-router-dom";
+import { describe, expect, it } from "vitest";
+import { Link, Outlet } from "react-router-dom";
 import { useLocation, useParams } from "react-router";
-import { withRoute, withRouter } from "./index.js";
+import type { RouteObject } from "react-router-dom";
+import { withRoute, withRoutes, withRouter } from "./index.js";
 import { useQueryParam, StringParam } from "use-query-params";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { click, render } from "@homebound/rtl-utils";
 
 describe("renderRouter", () => {
-  it("withRouter provides expected defaults", () => {
+  it("withRouter provides expected defaults", async () => {
     // Given withRouter used without an explicit url
     // When component rendered
-    const { getByTestId } = render(withRouter().wrap(<FooPage />));
+    const r = await render(<FooPage />, { wrappers: [withRouter()] });
     // Then url is root
-    expect(getByTestId("url").innerHTML).toEqual("/");
+    expect(r.url.innerHTML).toEqual("/");
   });
 
-  it("withRouter renders without requiring a path", () => {
+  it("withRouter renders without requiring a path", async () => {
     // Given withRouter provided an explicit url and is used without withRoute
     const router = withRouter(fooUrlWithParam);
     // When component is rendered
-    const { getByTestId } = render(router.wrap(<FooPage />));
+    const r = await render(<FooPage />, { wrappers: [router] });
     // Then url is correct
     expect(router.location.pathname).toBe(fooUrl);
-    expect(getByTestId("url").innerHTML).toEqual(fooUrl);
+    expect(r.url.innerHTML).toEqual(fooUrl);
     // and param is correct
-    expect(getByTestId("param").innerHTML).toEqual("test");
+    expect(r.param.innerHTML).toEqual("test");
     // and there is no match for `id` as we didn't specify withRoute
-    expect(getByTestId("id").innerHTML).toEqual("");
+    expect(r.id.innerHTML).toEqual("");
   });
 
-  it("withRoute throws when not wrapped by router", () => {
-    // note: test passes but still showing asserted error in console without spy
-    const spy = vi.spyOn(console, "error").mockImplementation(() => { });
+  it("withRoute throws when not wrapped by router", async () => {
     // Given route is not wrapped by router when the component is rendered then an error is thrown
     // withRoute("") is a pass-through; use a real path to require a Router parent
-    expect(() => render(withRoute(fooPath).wrap(<FooPage />))).toThrow(
+    await expect(render(<FooPage />, { wrappers: [withRoute(fooPath)] })).rejects.toThrow(
       "useRoutes() may be used only in the context of a <Router> component",
     );
-    spy.mockRestore();
   });
 
-  it("withRoute provides expected defaults", () => {
+  it("withRoute provides expected defaults", async () => {
     // Given withRoute used without an explicit path
     // When component rendered
-    const { getByTestId } = render(withRouter().wrap(withRoute().wrap(<FooPage />)));
+    const r = await render(<FooPage />, { wrappers: [withRoute(), withRouter()] });
     // Then route path is an empty string
-    expect(getByTestId("id").innerHTML).toEqual("");
+    expect(r.id.innerHTML).toEqual("");
   });
 
-  it("withRouter and withRoute supports useParams and useQueryParam hooks", () => {
+  it("withRouter and withRoute supports useParams and useQueryParam hooks", async () => {
     // Given withRouter and withRoute are used to wrap component
     const router = withRouter(fooUrlWithParam);
     const route = withRoute(fooPath);
     // When component is rendered
-    const { getByTestId } = render(router.wrap(route.wrap(<FooPage />)));
+    const r = await render(<FooPage />, { wrappers: [route, router] });
     // Then url is correct
     expect(router.location.pathname).toBe(fooUrl);
-    expect(getByTestId("url").innerHTML).toEqual(fooUrl);
+    expect(r.url.innerHTML).toEqual(fooUrl);
     // and param is correct
-    expect(getByTestId("param").innerHTML).toEqual("test");
+    expect(r.param.innerHTML).toEqual("test");
     // and there is a match for `id` as path was provided
-    expect(getByTestId("id").innerHTML).toEqual("1");
+    expect(r.id.innerHTML).toEqual("1");
   });
 
   it("navigates via router.navigate and updates location", async () => {
     const router = withRouter("/foo/1", "/foo/:id");
-    render(router.wrap(<FooPage />));
+    await render(<FooPage />, { wrappers: [router] });
     expect(router.location.pathname).toBe("/foo/1");
 
     await router.navigate("/foo/2");
@@ -75,19 +73,53 @@ describe("renderRouter", () => {
 
   it("navigates via Link click and updates location", async () => {
     const router = withRouter("/foo/1", "/foo/:id");
-    render(
-      router.wrap(
-        <>
-          <Link to="/foo/2">Go</Link>
-          <FooPage />
-        </>,
-      ),
+    const r = await render(
+      <>
+        <Link to="/foo/2">Go</Link>
+        <FooPage />
+      </>,
+      { wrappers: [router] },
     );
     expect(router.location.pathname).toBe("/foo/1");
 
-    fireEvent.click(screen.getByRole("link", { name: /go/i }));
+    click(r.getByRole("link", { name: /go/i }));
 
     expect(router.location.pathname).toBe("/foo/2");
+  });
+});
+
+describe("withRoutes", () => {
+  it("matches nested route tree and renders the leaf", async () => {
+    const r = await render(<></>, { wrappers: [withRoutes(fooRoutes(), "/foo/1")] });
+    expect(r.leaf.innerHTML).toEqual("leaf");
+  });
+
+  it("ignores the wrap child", async () => {
+    const r = await render(<div data-testid="ignored" />, { wrappers: [withRoutes(fooRoutes(), "/foo/1")] });
+    expect(r.query.ignored).toBeNull();
+    expect(r.leaf.innerHTML).toEqual("leaf");
+  });
+
+  it("location reflects the url arg", async () => {
+    const router = withRoutes(fooRoutes(), "/foo/2");
+    await render(<></>, { wrappers: [router] });
+    expect(router.location.pathname).toBe("/foo/2");
+  });
+
+  it("navigates via router.navigate and updates location", async () => {
+    const router = withRoutes(fooRoutes(), "/foo/1");
+    await render(<></>, { wrappers: [router] });
+    expect(router.location.pathname).toBe("/foo/1");
+
+    await router.navigate("/foo/2");
+
+    expect(router.location.pathname).toBe("/foo/2");
+  });
+
+  it("does not render a leaf for an unknown URL", async () => {
+    const r = await render(<></>, { wrappers: [withRoutes(fooRoutes(), "/foo/1/not-found")] });
+    expect(r.query.leaf).toBeNull();
+    expect(r.notFound.innerHTML).toEqual("not-found");
   });
 });
 
@@ -108,4 +140,17 @@ function FooPage() {
       <span data-testid="param">{param}</span>
     </>
   );
+}
+
+function fooRoutes(): RouteObject[] {
+  return [
+    {
+      path: "/foo",
+      element: <Outlet />,
+      children: [
+        { path: ":id", element: <span data-testid="leaf">leaf</span> },
+        { path: "*", element: <span data-testid="notFound">not-found</span> },
+      ],
+    },
+  ];
 }
