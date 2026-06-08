@@ -7,8 +7,7 @@
     "moduleResolution": "NodeNext",
     "paths": {
       "src/*": ["src/*"],
-      "src": ["src"],
-      "@homebound/rtl-utils": ["./node_modules/@homebound/rtl-utils/build/lib/index.d.ts"]
+      "src": ["src"]
     }
   },
   "exclude": ["node_modules", "src/**/*.test.tsx", "src/setupTests.ts"]
